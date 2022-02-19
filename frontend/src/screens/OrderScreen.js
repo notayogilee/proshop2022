@@ -93,7 +93,7 @@ const OrderScreen = ({ match, history }) => {
                   {order.shippingAddress.address}, {order.shippingAddress.city} {order.shippingAddress.postalCode}, {order.shippingAddress.country}
                 </p>
                 {order.isDelivered ? (
-                  <Message variant="success">Delivered on <Moment format={"DD MMM YYYY"}>{order.deliveredAt}</Moment></Message>
+                  <Message variant="success">Delivered on <Moment format={"DD MMM YYYY h:mm a"}>{order.deliveredAt}</Moment></Message>
                 ) : (
                   <Message variant="danger">Not Delivered</Message>
                 )}
@@ -104,7 +104,7 @@ const OrderScreen = ({ match, history }) => {
                 <p> <strong>Method: </strong>
                   {order.paymentMethod}</p>
                 {order.isPaid ? (
-                  <Message variant="success">Paid on <Moment format={"DD MMM YYYY"}>{order.paidAt}</Moment></Message>
+                  <Message variant="success">Paid on <Moment format={"DD MMM YYYY h:mm a"}>{order.paidAt}</Moment></Message>
                 ) : (
                   <Message variant="danger">Not Paid</Message>
                 )}

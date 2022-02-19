@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/Message.js';
-import Loader from '../components/Loader.js';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import Moment from 'react-moment';
 import { listOrders } from '../actions/orderActions';
 
 const OrderListScreen = ({ history }) => {
@@ -49,24 +50,24 @@ const OrderListScreen = ({ history }) => {
                   <td>{order._id}</td>
                   <td>{order.user && order.user.name}</td>
                   <td>
-                    {order.createdAt.substring(0, 10)}
+                    {<Moment format={"DD MMM YYYY h:mm a"}>{order.createdAt}</Moment>}
                   </td>
                   <td>
                     ${order.totalPrice}
                   </td>
                   <td>
                     {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
+                      <Moment format={"DD MMM YYYY h:mm a"}>{order.paidAt}</Moment>
                     ) : (
-                        <i className="fas fa-times" style={{ color: "red" }}></i>
-                      )}</td>
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                    )}</td>
                   <td>
                     <td>
                       {order.isDelivered ? (
-                        order.deliveredAt.substring(0, 10)
+                        <Moment format={"DD MMM YYYY h:mm a"}>{order.deliveredAt}</Moment>
                       ) : (
-                          <i className="fas fa-times" style={{ color: "red" }}></i>
-                        )}</td>
+                        <i className="fas fa-times" style={{ color: "red" }}></i>
+                      )}</td>
                     <td></td>
                     <LinkContainer to={`/order/${order._id}`}>
                       <Button variant="light" className="btn-sm">
