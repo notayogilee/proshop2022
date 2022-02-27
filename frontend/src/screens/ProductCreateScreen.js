@@ -19,6 +19,7 @@ const ProductCreateScreen = ({ history }) => {
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -32,7 +33,20 @@ const ProductCreateScreen = ({ history }) => {
   useEffect(() => {
     if (success) {
       dispatch({ type: PRODUCT_CREATE_RESET })
-      history.push("/admin/productlist");
+
+      setName('');
+      setPrice(0);
+      setImage('');
+      setBrand('');
+      setCategory('');
+      setCountInStock(0);
+      setDescription('');
+
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 5000)
+
     }
   }, [dispatch, history, success])
 
@@ -59,9 +73,9 @@ const ProductCreateScreen = ({ history }) => {
     }
   }
 
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    await dispatch(createProduct({
+    dispatch(createProduct({
       name,
       price,
       image,
@@ -70,10 +84,8 @@ const ProductCreateScreen = ({ history }) => {
       description,
       countInStock
     }))
-    if (success) {
-      console.log('success')
-      history.push("/admin/productlist");
-    }
+
+    window.scrollTo(0, 0)
 
   }
 
@@ -86,6 +98,7 @@ const ProductCreateScreen = ({ history }) => {
         <h1>Create Product</h1>
         {loading && <Loader />}
         {error && <Message variant="danger">{error}</Message>}
+        {showMessage && <Message variant="success">{"Product added!"}</Message>}
 
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
